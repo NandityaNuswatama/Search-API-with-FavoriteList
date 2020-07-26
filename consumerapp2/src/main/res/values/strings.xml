@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">ConsumerApp</string>
+    <string name="name">name</string>
+    <string name="company">Company</string>
+    <string name="repository">Repository</string>
+    <string name="title_activity_detail_tab">DetailTabActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="username">username</string>
+    <string name="follower">Followers</string>
+    <string name="following">Following</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Github Username</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite">Favorite</string>
+    <string name="setting">Setting</string>
+    <string name="key_switch">switch</string>
+    <string name="switch_value">9 AM Remainder</string>
+    <string name="notif_title">Github Search</string>
+    <string name="summary_on">Remainder active</string>
+    <string name="summary_off">Remainder inactive</string>
+    <string name="favorite_hint">Click Username to see details</string>
+</resources>
