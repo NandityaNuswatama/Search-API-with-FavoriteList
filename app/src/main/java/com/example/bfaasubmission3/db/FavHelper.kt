@@ -68,6 +68,10 @@ class FavHelper(context: Context) {
         return database.insert(DATABASE_TABLE, null, values)
     }
 
+    fun update(id: String, values: ContentValues?): Int {
+        return database.update(DATABASE_TABLE, values, "$_ID = ?", arrayOf(id))
+    }
+
     fun deleteById(id: String): Int {
         return database.delete(DATABASE_TABLE, "$_ID = '$id'", null)
     }

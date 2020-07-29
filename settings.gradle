@@ -1,3 +1,4 @@
+include ':favoriteconsumer'
 include ':consumerapp2'
 include ':app'
 rootProject.name = "BfaaSubmission3"

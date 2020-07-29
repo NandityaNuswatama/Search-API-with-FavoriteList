@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bfaasubmission3.adapter.ListActivityAdapter
 import com.example.bfaasubmission3.data.DataUserItems
-import com.example.bfaasubmission3.detail.DetailActivity
 import com.example.bfaasubmission3.favorite.FavoriteActivity
 import com.example.bfaasubmission3.settings.SettingActivity
 import com.loopj.android.http.AsyncHttpClient
@@ -25,12 +24,13 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ListActivityAdapter
     val listItems = ArrayList<DataUserItems>()
+    private val API_KEY: String = BuildConfig.API_KEY.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = ListActivityAdapter()
+        adapter = ListActivityAdapter(this)
         adapter.notifyDataSetChanged()
 
         rv_user.layoutManager = LinearLayoutManager(this)
@@ -38,12 +38,12 @@ class MainActivity : AppCompatActivity() {
 
         searchUser()
 
-        adapter.setOnItemClickCallback(object : ListActivityAdapter.OnItemClickCallback{
-            override fun onItemClicked(dataUserItems: DataUserItems) {
-                toDetailUser(dataUserItems)
-                Timber.i("user selected")
-            }
-        })
+//        adapter.setOnItemClickCallback(object : ListActivityAdapter.OnItemClickCallback{
+//            override fun onItemClicked(dataUserItems: DataUserItems) {
+//                toDetailUser(dataUserItems)
+//                Timber.i("user selected")
+//            }
+//        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         showLoading(true)
         val url = "https://api.github.com/search/users?q=$username"
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "=token3b715ca01fb8551395d618c5033fbfd160cc8dee")
+        client.addHeader("Authorization", API_KEY)
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler(){
             override fun onSuccess(
@@ -148,10 +148,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toDetailUser(dataUserItems: DataUserItems){
-        val toDetail = Intent(this, DetailActivity::class.java)
-        toDetail.putExtra(DetailActivity.EXTRA_LIST, dataUserItems.username)
-        toDetail.putExtra(DetailActivity.EXTRA_URL, dataUserItems.avatar)
-        startActivity(toDetail)
-    }
+//    private fun toDetailUser(dataUserItems: DataUserItems){
+//        val toDetail = Intent(this, DetailActivity::class.java)
+//        toDetail.putExtra(DetailActivity.EXTRA_LIST, dataUserItems.username)
+//        toDetail.putExtra(EXTRA_DATA, dataUserItems)
+//        startActivity(toDetail)
+//    }
 }

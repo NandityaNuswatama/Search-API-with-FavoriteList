@@ -1,4 +1,4 @@
-package com.example.bfaasubmission3.adapter
+package com.example.favoriteconsumer.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bfaasubmission3.R
-import com.example.bfaasubmission3.data.DataUserItems
-import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.CONTENT_URI
-import com.example.bfaasubmission3.detail.DetailActivity
-import com.example.bfaasubmission3.detail.DetailActivity.Companion.EXTRA_DATA
+import com.example.favoriteconsumer.R
+import com.example.favoriteconsumer.data.DataUserItems
+import com.example.favoriteconsumer.db.DatabaseContract.FavColumns.Companion.CONTENT_URI
+import com.example.favoriteconsumer.detail.DetailActivity
+import com.example.favoriteconsumer.detail.DetailActivity.Companion.EXTRA_DATA
 import kotlinx.android.synthetic.main.favorite_list.view.*
 
 class FavoriteAdapter(val context: Context): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
@@ -37,7 +37,7 @@ class FavoriteAdapter(val context: Context): RecyclerView.Adapter<FavoriteAdapte
 
             itemView.btn_delete_fav.setOnClickListener {
                 deleteFavUser(fav.id)
-            notifyItemRemoved(position)}
+                notifyItemRemoved(position)}
 
             itemView.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)

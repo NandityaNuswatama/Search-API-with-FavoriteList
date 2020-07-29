@@ -1,5 +1,7 @@
 package com.example.bfaasubmission3.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,24 +10,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.bfaasubmission3.R
 import com.example.bfaasubmission3.data.DataUserItems
+import com.example.bfaasubmission3.detail.DetailActivity
+import com.example.bfaasubmission3.detail.DetailActivity.Companion.EXTRA_DATA
 import kotlinx.android.synthetic.main.activity_list.view.*
 
-class ListActivityAdapter: RecyclerView.Adapter<ListActivityAdapter.ListViewHolder>() {
+class ListActivityAdapter(val context: Context): RecyclerView.Adapter<ListActivityAdapter.ListViewHolder>() {
     private val mData = ArrayList<DataUserItems>()
-    private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setData(items: ArrayList<DataUserItems>){
         mData.clear()
         mData.addAll(items)
         notifyDataSetChanged()
-    }
-
-    interface OnItemClickCallback {
-        fun onItemClicked(dataUserItems: DataUserItems)
-    }
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
-        this.onItemClickCallback = onItemClickCallback
     }
 
     inner class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -40,7 +35,12 @@ class ListActivityAdapter: RecyclerView.Adapter<ListActivityAdapter.ListViewHold
             itemView.tv_followers.text = user.followers
             itemView.tv_following.text = user.following
 
-            itemView.setOnClickListener { onItemClickCallback.onItemClicked(user) }
+            itemView.setOnClickListener {
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(EXTRA_DATA, user)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            }
         }
     }
 

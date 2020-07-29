@@ -1,19 +1,11 @@
-package com.example.bfaasubmission3.detail
+package com.example.favoriteconsumer.detail
 
-import android.content.ContentValues
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.bfaasubmission3.R
-import com.example.bfaasubmission3.adapter.SectionPagerAdapter
-import com.example.bfaasubmission3.data.DataUserItems
-import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.AVATAR_URL
-import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.CONTENT_URI
-import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.USERNAME
-import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion._ID
-import com.example.bfaasubmission3.helper.MappingHelper
-import com.google.android.material.snackbar.Snackbar
+import com.example.favoriteconsumer.R
+import com.example.favoriteconsumer.adapter.SectionPagerAdapter
+import com.example.favoriteconsumer.data.DataUserItems
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -27,9 +19,7 @@ class DetailActivity : AppCompatActivity(){
         const val EXTRA_DATA = "data"
     }
 
-    private lateinit var uri: Uri
-    private val API_KEY: String = com.example.bfaasubmission3.BuildConfig.API_KEY
-    private var isFavorite: Boolean = false
+    private val API_KEY: String = com.example.favoriteconsumer.BuildConfig.API_KEY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,22 +34,8 @@ class DetailActivity : AppCompatActivity(){
         view_pager.adapter = sectionPagerAdapter
         tabMode.setupWithViewPager(view_pager)
 
-        val dataUserItem = DataUserItems()
+        setStatusFav()
 
-        isFavorite = checkFavList(dataUserItem.id)
-        setStatusFav(isFavorite)
-        uri = Uri.parse("$CONTENT_URI")
-        fab_favorite.setOnClickListener {
-            isFavorite = !isFavorite
-            setStatusFav(isFavorite)
-            if (isFavorite){
-                addToFavList(getData)
-                showSnackbarMessage("User added to My Favorite")
-            }else {
-                deleteFavorite(dataUserItem.id)
-                showSnackbarMessage("User removed from My Favorite")
-            }
-        }
     }
 
     private fun setDetail(username: String){
@@ -117,40 +93,7 @@ class DetailActivity : AppCompatActivity(){
         })
     }
 
-    private fun showSnackbarMessage(message: String) {
-        Snackbar.make(view_pager, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun setStatusFav(statusFav: Boolean){
-        if(statusFav){
+    private fun setStatusFav(){
             fab_favorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-        }else{
-            fab_favorite.setImageResource(R.drawable.ic_baseline_favorite_border_24
-            )
-        }
-    }
-
-    private fun addToFavList(user: DataUserItems){
-        val values = ContentValues()
-        values.put(USERNAME, user.username)
-        values.put(AVATAR_URL, user.avatar)
-        values.put(_ID, user.id)
-        val contentResolver = CONTENT_URI?.let { contentResolver.insert(it, values) }
-    }
-
-    private fun checkFavList(id: Int): Boolean{
-        val uri = Uri.parse("$CONTENT_URI/$id")
-        val cursor = contentResolver.query(uri, null, null, null, null)
-        if (cursor != null && cursor.count != 0){
-            val data = MappingHelper.mapCursorToObject(cursor)
-            cursor.close()
-            return true
-        }
-        return false
-    }
-
-    private fun deleteFavorite(id: Int){
-        val uri = Uri.parse("$CONTENT_URI/$id")
-        contentResolver.delete(uri, null, null)
     }
 }

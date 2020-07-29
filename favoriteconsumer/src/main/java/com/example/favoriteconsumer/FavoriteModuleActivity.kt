@@ -1,4 +1,4 @@
-package com.example.bfaasubmission3.favorite
+package com.example.favoriteconsumer
 
 import android.database.ContentObserver
 import android.os.Bundle
@@ -6,19 +6,18 @@ import android.os.Handler
 import android.os.HandlerThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bfaasubmission3.R
-import com.example.bfaasubmission3.adapter.FavoriteAdapter
-import com.example.bfaasubmission3.data.DataUserItems
-import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.CONTENT_URI
-import com.example.bfaasubmission3.helper.MappingHelper
+import com.example.favoriteconsumer.adapter.FavoriteAdapter
+import com.example.favoriteconsumer.data.DataUserItems
+import com.example.favoriteconsumer.db.DatabaseContract.FavColumns.Companion.CONTENT_URI
+import com.example.favoriteconsumer.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_favorite.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class FavoriteActivity : AppCompatActivity() {
+class FavoriteModuleActivity : AppCompatActivity() {
     private lateinit var adapter: FavoriteAdapter
 
     companion object {
@@ -27,9 +26,9 @@ class FavoriteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_favorite)
+        setContentView(R.layout.activity_main)
 
-        supportActionBar?.title = "My Favorite"
+        supportActionBar?.title = "My Favorite Consumer"
 
         adapter = FavoriteAdapter(this)
         rv_favorite.adapter = adapter
