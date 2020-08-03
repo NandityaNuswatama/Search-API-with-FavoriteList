@@ -1,4 +1,4 @@
-package com.example.bfaasubmission3.detail
+package com.example.favoriteconsumer.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bfaasubmission3.R
-import com.example.bfaasubmission3.adapter.FollowAdapter
-import com.example.bfaasubmission3.data.DataFollow
+import com.example.favoriteconsumer.R
+import com.example.favoriteconsumer.adapter.FollowAdapter
+import com.example.favoriteconsumer.data.DataFollow
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.fragment_follower.*
 import org.json.JSONArray
 import timber.log.Timber
-import java.lang.Exception
 
 class FollowerFragment : Fragment() {
     private lateinit var adapter: FollowAdapter

@@ -7,7 +7,7 @@ object DatabaseContract {
     const val SCHEME = "content"
     const val AUTHORITY = "com.example.bfaasubmission3"
 
-    internal class FavColumns: BaseColumns{
+    class FavColumns: BaseColumns{
         companion object{
             const val _ID = "_id"
             const val TABLE_NAME = "favorite_user"

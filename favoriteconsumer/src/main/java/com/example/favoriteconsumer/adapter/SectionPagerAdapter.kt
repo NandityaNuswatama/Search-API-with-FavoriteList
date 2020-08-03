@@ -7,9 +7,9 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.bfaasubmission3.R
-import com.example.bfaasubmission3.detail.FollowerFragment
-import com.example.bfaasubmission3.detail.FollowingFragment
+import com.example.favoriteconsumer.R
+import com.example.favoriteconsumer.detail.FollowerFragment
+import com.example.favoriteconsumer.detail.FollowingFragment
 
 class SectionPagerAdapter(private val mContext: Context, fm: FragmentManager, private val dataName: String): FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     @StringRes

@@ -33,9 +33,6 @@ class DetailActivity : AppCompatActivity(){
         val sectionPagerAdapter = getData.username?.let { SectionPagerAdapter(this, supportFragmentManager, it) }
         view_pager.adapter = sectionPagerAdapter
         tabMode.setupWithViewPager(view_pager)
-
-        setStatusFav()
-
     }
 
     private fun setDetail(username: String){
@@ -91,9 +88,5 @@ class DetailActivity : AppCompatActivity(){
                 Timber.i(errorMessage)
             }
         })
-    }
-
-    private fun setStatusFav(){
-            fab_favorite.setImageResource(R.drawable.ic_baseline_favorite_24)
     }
 }

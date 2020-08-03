@@ -48,7 +48,7 @@ class FavHelper(context: Context) {
             null,
             null,
             null,
-            "$_ID ASC"
+            null
         )
     }
 
@@ -60,7 +60,7 @@ class FavHelper(context: Context) {
             arrayOf(id),
             null,
             null,
-            null,
+            "$_ID ASC",
             null)
     }
 

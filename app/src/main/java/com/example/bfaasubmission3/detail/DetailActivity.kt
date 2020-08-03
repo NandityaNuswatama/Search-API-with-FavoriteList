@@ -135,7 +135,7 @@ class DetailActivity : AppCompatActivity(){
         values.put(USERNAME, user.username)
         values.put(AVATAR_URL, user.avatar)
         values.put(_ID, user.id)
-        val contentResolver = CONTENT_URI?.let { contentResolver.insert(it, values) }
+        val resolver = CONTENT_URI?.let { contentResolver.insert(it, values) }
     }
 
     private fun checkFavList(id: Int): Boolean{
