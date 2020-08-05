@@ -30,8 +30,9 @@ class FavHelper(context: Context) {
     fun queryAll(): Cursor =
         db.query(DATABASE_TABLE, null, null, null, null, null, null, null)
 
-    fun queryByUsername(username: String): Cursor =
-        db.query(DATABASE_TABLE, null, "$USERNAME = ?", arrayOf(username), null, null, null)
+    fun queryByUsername(username: String): Cursor{
+        return db.query(DATABASE_TABLE, null, "$USERNAME = ?", arrayOf(username), null, null, null)
+    }
 
     fun insert(values: ContentValues?): Long =
         db.insert(DATABASE_TABLE, null, values)

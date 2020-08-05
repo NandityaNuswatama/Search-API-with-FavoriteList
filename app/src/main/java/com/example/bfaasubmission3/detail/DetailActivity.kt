@@ -11,6 +11,7 @@ import com.example.bfaasubmission3.data.DataUserItems
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.AVATAR_URL
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.CONTENT_URI
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.USERNAME
+import com.example.bfaasubmission3.db.FavHelper
 import com.example.bfaasubmission3.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
@@ -30,17 +31,24 @@ class DetailActivity : AppCompatActivity(){
     private var dataUserItems: DataUserItems? = null
     private val API_KEY: String = com.example.bfaasubmission3.BuildConfig.API_KEY
     private var isFavorite: Boolean = false
+    private lateinit var favHelper: FavHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
         val getData = intent?.getParcelableExtra(EXTRA_DATA) as DataUserItems
-        getData.username?.let { setDetail(it) }
+        getData.username.let { setDetail(it) }
 
         Timber.i(getData.toString())
 
-        val sectionPagerAdapter = getData.username?.let { SectionPagerAdapter(this, supportFragmentManager, it) }
+        favHelper = FavHelper.getInstance(this)
+        favHelper.open()
+        val queryByUsername = favHelper.queryByUsername(getData.username)
+        Timber.i("queryByUsername: $queryByUsername")
+
+        val sectionPagerAdapter =
+            getData.username.let { SectionPagerAdapter(this, supportFragmentManager, it) }
         view_pager.adapter = sectionPagerAdapter
         tabMode.setupWithViewPager(view_pager)
 
@@ -54,7 +62,7 @@ class DetailActivity : AppCompatActivity(){
                 addToFavList(getData)
                 showSnackbarMessage("User added to My Favorite")
             }else {
-                deleteFavorite(getData.id)
+                deleteFavorite(getData.username)
                 showSnackbarMessage("User removed from My Favorite")
             }
         }
@@ -150,8 +158,8 @@ class DetailActivity : AppCompatActivity(){
         return false
     }
 
-    private fun deleteFavorite(id: Int){
-        val uri = Uri.parse("$CONTENT_URI/$id")
+    private fun deleteFavorite(username: String){
+        val uri = Uri.parse("$CONTENT_URI/$username")
         contentResolver.delete(uri, null, null)
     }
 }

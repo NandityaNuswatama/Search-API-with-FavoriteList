@@ -10,6 +10,7 @@ import com.example.bfaasubmission3.db.DatabaseContract.AUTHORITY
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.CONTENT_URI
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.TABLE_NAME
 import com.example.bfaasubmission3.db.FavHelper
+import timber.log.Timber
 
 class FavoriteProvider: ContentProvider() {
 
@@ -33,11 +34,13 @@ class FavoriteProvider: ContentProvider() {
         sortOrder: String?
     ): Cursor? {
         val cursor: Cursor?
+        Timber.i("query: $uri")
+        Timber.i("uriMatcher: ${sUriMatcher.match(uri)}")
         when(sUriMatcher.match(uri)){
             FAVORITE -> cursor = favHelper.queryAll()
-            FAVORITE_USERNAME -> cursor = favHelper.queryByUsername(uri.lastPathSegment.toString())
-            else -> cursor = null
+            else -> cursor = favHelper.queryByUsername(uri.lastPathSegment.toString())
         }
+        Timber.i("cursor: $cursor")
         return cursor
     }
 
