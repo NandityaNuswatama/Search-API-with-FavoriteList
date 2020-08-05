@@ -39,6 +39,4 @@ class FavHelper(context: Context) {
 
     fun deleteByUsername(username: String): Int =
         db.delete(DATABASE_TABLE, "$_ID = $username", null)
-
-
 }

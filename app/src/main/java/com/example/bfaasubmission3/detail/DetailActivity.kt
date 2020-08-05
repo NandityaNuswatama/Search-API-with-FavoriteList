@@ -62,7 +62,7 @@ class DetailActivity : AppCompatActivity(){
                 addToFavList(getData)
                 showSnackbarMessage("User added to My Favorite")
             }else {
-                deleteFavorite(getData.username)
+                deleteFavorite(getData.id)
                 showSnackbarMessage("User removed from My Favorite")
             }
         }
@@ -158,8 +158,8 @@ class DetailActivity : AppCompatActivity(){
         return false
     }
 
-    private fun deleteFavorite(username: String){
-        val uri = Uri.parse("$CONTENT_URI/$username")
+    private fun deleteFavorite(id: Int){
+        val uri = Uri.parse("$CONTENT_URI/$id")
         contentResolver.delete(uri, null, null)
     }
 }
