@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import timber.log.Timber
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ListActivityAdapter
     val listItems = ArrayList<DataUserItems>()
