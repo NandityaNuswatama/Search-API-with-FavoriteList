@@ -20,4 +20,5 @@
     <string name="summary_on">Remainder active</string>
     <string name="summary_off">Remainder inactive</string>
     <string name="favorite_hint">Click Username to see details</string>
+    <string name="find_awesome_people_here">FIND AWESOME PEOPLE HERE</string>
 </resources>

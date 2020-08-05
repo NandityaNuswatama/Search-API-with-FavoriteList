@@ -148,7 +148,6 @@ class DetailActivity : AppCompatActivity(){
     private fun checkFavList(username: String): Boolean{
         val uri = Uri.parse("$CONTENT_URI/$username")
         val cursor = contentResolver.query(uri, null, null, null, null)
-        Timber.i("found:${cursor?.count} || cursor:${cursor}")
         if (cursor != null && cursor.count != 0){
             dataUserItems = MappingHelper.mapCursorToObject(cursor)
             Timber.i("username:${dataUserItems?.username}")

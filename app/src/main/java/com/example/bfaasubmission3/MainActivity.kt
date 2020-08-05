@@ -38,12 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         searchUser()
 
-//        adapter.setOnItemClickCallback(object : ListActivityAdapter.OnItemClickCallback{
-//            override fun onItemClicked(dataUserItems: DataUserItems) {
-//                toDetailUser(dataUserItems)
-//                Timber.i("user selected")
-//            }
-//        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -72,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 getGithubUser(query)
                 imageView.visibility = View.INVISIBLE
+                tv_display.visibility = View.INVISIBLE
                 Toast.makeText(this@MainActivity, "Searching for $query", Toast.LENGTH_SHORT).show()
                 return true
             }
