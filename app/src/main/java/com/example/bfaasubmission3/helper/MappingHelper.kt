@@ -26,7 +26,7 @@ object MappingHelper {
             val id = getInt(getColumnIndexOrThrow(DatabaseContract.FavColumns._ID))
             val username = getString(getColumnIndexOrThrow(DatabaseContract.FavColumns.USERNAME))
             val avatar = getString(getColumnIndexOrThrow(DatabaseContract.FavColumns.AVATAR_URL))
-            favUser = DataUserItems(username = username, avatar = avatar, id = id)
+            favUser = DataUserItems(id, username, avatar)
         }
         return favUser
     }

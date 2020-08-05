@@ -11,7 +11,6 @@ import com.example.bfaasubmission3.data.DataUserItems
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.AVATAR_URL
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.CONTENT_URI
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.USERNAME
-import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion._ID
 import com.example.bfaasubmission3.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
@@ -28,6 +27,7 @@ class DetailActivity : AppCompatActivity(){
     }
 
     private lateinit var uri: Uri
+    private var dataUserItems: DataUserItems? = null
     private val API_KEY: String = com.example.bfaasubmission3.BuildConfig.API_KEY
     private var isFavorite: Boolean = false
 
@@ -44,9 +44,7 @@ class DetailActivity : AppCompatActivity(){
         view_pager.adapter = sectionPagerAdapter
         tabMode.setupWithViewPager(view_pager)
 
-        val dataUserItem = DataUserItems()
-
-        isFavorite = checkFavList(dataUserItem.id)
+        isFavorite = checkFavList(getData.username)
         setStatusFav(isFavorite)
         uri = Uri.parse("$CONTENT_URI")
         fab_favorite.setOnClickListener {
@@ -56,7 +54,7 @@ class DetailActivity : AppCompatActivity(){
                 addToFavList(getData)
                 showSnackbarMessage("User added to My Favorite")
             }else {
-                deleteFavorite(dataUserItem.id)
+                deleteFavorite(getData.id)
                 showSnackbarMessage("User removed from My Favorite")
             }
         }
@@ -134,15 +132,18 @@ class DetailActivity : AppCompatActivity(){
         val values = ContentValues()
         values.put(USERNAME, user.username)
         values.put(AVATAR_URL, user.avatar)
-        values.put(_ID, user.id)
-        val resolver = CONTENT_URI?.let { contentResolver.insert(it, values) }
+        if (CONTENT_URI != null) {
+            contentResolver.insert(CONTENT_URI, values)
+        }
     }
 
-    private fun checkFavList(id: Int): Boolean{
-        val uri = Uri.parse("$CONTENT_URI/$id")
+    private fun checkFavList(username: String): Boolean{
+        val uri = Uri.parse("$CONTENT_URI/$username")
         val cursor = contentResolver.query(uri, null, null, null, null)
+        Timber.i("found:${cursor?.count} || cursor:${cursor}")
         if (cursor != null && cursor.count != 0){
-            val data = MappingHelper.mapCursorToObject(cursor)
+            dataUserItems = MappingHelper.mapCursorToObject(cursor)
+            Timber.i("username:${dataUserItems?.username}")
             cursor.close()
             return true
         }

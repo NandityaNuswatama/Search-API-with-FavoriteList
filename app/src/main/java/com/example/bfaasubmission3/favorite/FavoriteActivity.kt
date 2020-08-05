@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class FavoriteActivity : AppCompatActivity() {
     private lateinit var adapter: FavoriteAdapter
@@ -78,6 +79,7 @@ class FavoriteActivity : AppCompatActivity() {
                 adapter.listFavorite = ArrayList()
                 showSnackbarMessage("No Favorite was added yet")
             }
+            Timber.i("Favorite: $users")
         }
     }
 
