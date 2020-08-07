@@ -3,6 +3,7 @@ package com.example.bfaasubmission3.detail
 import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
+import android.provider.BaseColumns._ID
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.bfaasubmission3.R
@@ -83,6 +84,7 @@ class DetailActivity : AppCompatActivity(){
                     val result = String(responseBody)
                     val responseObject = JSONObject(result)
 
+                    val id = responseObject.getString("id").toInt()
                     val name = responseObject.getString("name")
                     val company = responseObject.getString("company")
                     val repos = responseObject.getString("public_repos")
@@ -91,6 +93,7 @@ class DetailActivity : AppCompatActivity(){
                     val followers = responseObject.getString("followers")
                     val following = responseObject.getString("following")
 
+                    tv_idDetail.text = id.toString()
                     tv_name_detail.text = name
                     tv_company_detail.text = company
                     tv_repository_detail.text = repos
@@ -101,6 +104,7 @@ class DetailActivity : AppCompatActivity(){
                         .load(avatar)
                         .into(img_avatar_detail)
 
+                    Timber.i("id in detail: $id")
                 }catch (e: Exception){
                     Timber.i(e.message.toString())
                 }
@@ -138,8 +142,10 @@ class DetailActivity : AppCompatActivity(){
 
     private fun addToFavList(user: DataUserItems){
         val values = ContentValues()
+        values.put(_ID, user.id)
         values.put(USERNAME, user.username)
         values.put(AVATAR_URL, user.avatar)
+        Timber.i("id: ${user.id}")
         if (CONTENT_URI != null) {
             contentResolver.insert(CONTENT_URI, values)
         }
@@ -151,6 +157,7 @@ class DetailActivity : AppCompatActivity(){
         if (cursor != null && cursor.count != 0){
             dataUserItems = MappingHelper.mapCursorToObject(cursor)
             Timber.i("username:${dataUserItems?.username}")
+            Timber.i("username:${dataUserItems?.id}")
             cursor.close()
             return true
         }

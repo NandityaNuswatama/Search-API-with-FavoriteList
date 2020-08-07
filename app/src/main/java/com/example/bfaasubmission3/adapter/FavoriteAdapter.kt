@@ -32,7 +32,7 @@ class FavoriteAdapter(val context: Context): RecyclerView.Adapter<FavoriteAdapte
         fun bind(fav: DataUserItems, position: Int) {
             itemView.tv_fav.text = fav.username
             Glide.with(itemView.context)
-                .load(fav.name)
+                .load(fav.avatar)
                 .into(itemView.img_fav)
 
             itemView.btn_delete_fav.setOnClickListener {

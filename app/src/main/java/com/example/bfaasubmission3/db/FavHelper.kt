@@ -4,9 +4,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.provider.BaseColumns._ID
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.TABLE_NAME
 import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion.USERNAME
-import com.example.bfaasubmission3.db.DatabaseContract.FavColumns.Companion._ID
 
 class FavHelper(context: Context) {
     private val dbHelper = DatabaseHelper(context)

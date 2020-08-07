@@ -23,7 +23,7 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ListActivityAdapter
     val listItems = ArrayList<DataUserItems>()
-    private val API_KEY: String = BuildConfig.API_KEY.toString()
+    private val API_KEY: String = BuildConfig.API_KEY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                         val user = list.getJSONObject(i)
                         val userData = DataUserItems()
 
+                        userData.id = user.getInt("id")
                         userData.name = user.getString("login")
                         userData.company = user.getString("organizations_url")
                         userData.repository = user.getString("repos_url")
